@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '~@fortawesome/fontawesome-free/css/fontawesome';
+@import '~@fortawesome/fontawesome-free/css/regular';
+@import '~@fortawesome/fontawesome-free/css/solid';
+@import '~@fortawesome/fontawesome-free/css/brands';
+
+*{
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    list-style: none;
+}
+
+html, body{
+    height: 100vh;
+}
+div{
+    width: 100%;
+    height: auto;
+}
+ul{
+    display: flex;
+    flex-direction: row;
+}

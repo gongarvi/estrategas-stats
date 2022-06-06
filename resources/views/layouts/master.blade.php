@@ -13,7 +13,7 @@
 
         @yield('headers')
     </head>
-    <body class="antialiased h-screen">
+    <body class="antialiased min-h-screen">
         <main id="main" class="bg-slate-300">
             @yield('content')
         </main>

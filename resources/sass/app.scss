@@ -14,15 +14,14 @@
     height: auto;
     list-style: none;
 }
-
-html, body{
-    height: 100vh;
-}
 div{
     width: 100%;
-    height: auto;
 }
 ul{
     display: flex;
     flex-direction: row;
 }
+// .custom-grid{
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(37.5em, 1fr));
+// }

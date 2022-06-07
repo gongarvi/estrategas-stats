@@ -21,7 +21,10 @@ ul{
     display: flex;
     flex-direction: row;
 }
-// .custom-grid{
-//     display: grid;
-//     grid-template-columns: repeat(auto-fit, minmax(37.5em, 1fr));
-// }
+
+.top{
+    background-color: #FFD965;
+}
+.super-top{
+    background-color: #F4B083;
+}

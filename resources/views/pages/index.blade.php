@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="">
-        <ul class="flex items-stretch justify-center dark:bg-gray-900 sm:items-center sm:pt-0">
+        <ul class="flex flex-wrap items-stretch justify-center dark:bg-gray-900 sm:items-center sm:pt-0">
             @foreach ($data as $item)
                 <li class="m-1">
                     <div class="rounded-lg shadow-lg bg-white max-w-sm">

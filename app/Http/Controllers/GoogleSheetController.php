@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enumerations\StadisticsRanges;
 use App\Models\Country;
-use Exception;
-use Google\Service\Sheets\Spreadsheet;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use StadisticsRanges;
 
 class GoogleSheetController extends Controller
 {
@@ -53,10 +50,18 @@ class GoogleSheetController extends Controller
             $stadistics[$case->name()] = $this->getDataFromSpreadSheet($spreadsheetId,str_replace("{RANGE}",(8 + $alivePlayers), $case->range()));
         }
         $data["stadistics"] = (object) $stadistics;
+        $data["tops"] = (object) $this->getTopsDataFromSpreadSheet($spreadsheetId);
         return (object) $data;
     }
 
-    function getYearFromSpreadSheet(string $spreadsheetId){
+    private function getTopsDataFromSpreadSheet(string $spreadsheetId){
+        $service = new \Google\Service\Sheets($this->client);
+        $range = "Regla de TOPs!H2:H3";
+        $response = $service->spreadsheets_values->get($spreadsheetId, $range)->getValues();
+        return array("top"=>$response[0][0], "superTop"=>$response[1][0]);
+    }
+
+    private function getYearFromSpreadSheet(string $spreadsheetId){
         $service = new \Google\Service\Sheets($this->client);
         $alivePlayersRange = "CONFIGURATION!B18";
         $year = $service->spreadsheets_values->get($spreadsheetId, $alivePlayersRange)->getValues()[0][0];
@@ -70,12 +75,14 @@ class GoogleSheetController extends Controller
             if(empty($values)) return array();
             $parsedValues = array();
             foreach($values as $value){
+                
                 $parsedValues[] = new Country($value[4],$value[5],$this->parseNumber($value[6]),$this->parseNumber($value[7]),$value[8],$value[2]);
             }
             return $parsedValues;
         }
         catch(\Exception $exception){
             var_dump($range);
+            print("Ha fallado la obteción de datos");
             die();
         }
     }

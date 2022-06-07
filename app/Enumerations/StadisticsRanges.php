@@ -1,4 +1,11 @@
 <?php
+
+namespace App\Enumerations;
+
+/**
+ * @method static self range()
+ * @method static self name()
+ */
 enum StadisticsRanges{
     case Development;
     case GreatPower;
@@ -22,6 +29,7 @@ enum StadisticsRanges{
     case DevelopmentClicks;
     // case AveragteGobermentPoints;
     case CountryForce;
+    case TOPs;
 
     public function range(){
         return match($this){
@@ -46,34 +54,36 @@ enum StadisticsRanges{
             StadisticsRanges::AverageDevelopmentCost => "Seguimiento!GR9:GZ{RANGE}",
             StadisticsRanges::DevelopmentClicks => "Seguimiento!HC9:HK{RANGE}",
             // StadisticsRanges::AveragteGobermentPoints => "Seguimiento!HN9:HV{RANGE}",
-            StadisticsRanges::CountryForce => "Seguimiento!HY9:IG{RANGE}"
+            StadisticsRanges::CountryForce => "Seguimiento!HY9:IG{RANGE}",
+            StadisticsRanges::TOPs => "Regla de TOPs!B9:J{RANGE}"
         };
     }
 
     public function name(){
         return match($this){
-            StadisticsRanges::Development => "Development",
-            StadisticsRanges::GreatPower => "GreatPower",
-            StadisticsRanges::Income => "Income",
-            StadisticsRanges::Professionalism => "Professionalism",
-            StadisticsRanges::ArmyLimit => "ArmyLimit",
-            StadisticsRanges::Innovation => "Innovation",
-            StadisticsRanges::Manpower => "Manpower",
-            StadisticsRanges::AverageDevelopment => "AverageDevelopment",
-            StadisticsRanges::OverallSpent => "OverallSpent",
-            StadisticsRanges::ManpowerRecovery => "ManpowerRecovery",
-            StadisticsRanges::Provinces => "Provinces",
-            // StadisticsRanges::Absolutism => "Absolutism",
-            StadisticsRanges::ArmyStrength => "ArmyStrength",
-            StadisticsRanges::TotalValue => "TotalValue",
-            // StadisticsRanges::NavalStrength => "NavalStrength",
-            StadisticsRanges::MonarchPointsSpent => "MonarchPointsSpent",
-            StadisticsRanges::ArmyQuality => "ArmyQuality",
-            StadisticsRanges::AdvisorsSpent => "AdvisorsSpent",
-            StadisticsRanges::AverageDevelopmentCost => "AverageDevelopmentCost",
-            StadisticsRanges::DevelopmentClicks => "DevelopmentClicks",
-            // StadisticsRanges::AveragteGobermentPoints => "AveragteGobermentPoints",
-            StadisticsRanges::CountryForce => "CountryForce"
+            StadisticsRanges::Development => "Desarrollo total",
+            StadisticsRanges::GreatPower => "Puntación de Gran Potencia",
+            StadisticsRanges::Income => "Ingreso mensual",
+            StadisticsRanges::Professionalism => "Profesionalismo",
+            StadisticsRanges::ArmyLimit => "Límite de ejército",
+            StadisticsRanges::Innovation => "Innovacion",
+            StadisticsRanges::Manpower => "Sodadesca máxima",
+            StadisticsRanges::AverageDevelopment => "Desarrollo promedio",
+            StadisticsRanges::OverallSpent => "Gasto total",
+            StadisticsRanges::ManpowerRecovery => "Recuperación de soldadesca",
+            StadisticsRanges::Provinces => "Número de provincias",
+            // StadisticsRanges::Absolutism => "Absolutismo",
+            StadisticsRanges::ArmyStrength => "Fuerza del ejército",
+            StadisticsRanges::TotalValue => "Valor total",
+            // StadisticsRanges::NavalStrength => "Fuerza naval",
+            StadisticsRanges::MonarchPointsSpent => "Puntos en desarrolloar",
+            StadisticsRanges::ArmyQuality => "Calidad del ejército",
+            StadisticsRanges::AdvisorsSpent => "Gasto en consejeros",
+            StadisticsRanges::AverageDevelopmentCost => "Coste medio en desarrollo",
+            StadisticsRanges::DevelopmentClicks => "Número de clicks en desarrollar",
+            // StadisticsRanges::AveragteGobermentPoints => "Media ponderada de gobernantes",
+            StadisticsRanges::CountryForce => "Fuerza del país",
+            StadisticsRanges::TOPs => "Países TOP y TOP+"
         };
     }
 }

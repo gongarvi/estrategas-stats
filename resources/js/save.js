@@ -2,6 +2,7 @@ import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import * as JSZip from 'jszip';
 
 const tables = document.getElementsByTagName("table");
 
@@ -18,15 +19,18 @@ function setTableColor(table){
         var pertencageString = item.getElementsByClassName("percentage").item(0).textContent;
         pertencageString = pertencageString.substring(0, pertencageString.length-1);
         var pertencage = parseFloat(pertencageString)/100;
-        pertencage = (pertencage>1)?1:pertencage;
-        pertencage = (pertencage<-1)?-1:pertencage;
+        pertencage = (pertencage>1)? 1 : pertencage;
+        if(pertencage < -1){
+            console.log(item);
+        }
+        pertencage = (pertencage < -1)?-1:pertencage;
 
         if(pertencage>0){
-            arrow.style.color = rgbToHex(colourGradientor(pertencage, [39, 130, 3], [188, 194, 8]));
+            arrow.style.color = rgbToHex(colourGradientor(pertencage, [39, 130, 3], [240, 250, 60]));
             arrow.style.transform = "rotate("+(pertencage*-90)+"deg)";
         }else if (pertencage<0){
-            arrow.style.color = rgbToHex(colourGradientor(pertencage, [212, 28, 4], [188, 194, 8]));
-            arrow.style.transform = "rotate("+(pertencage*90)+"deg)";
+            arrow.style.color = rgbToHex(colourGradientor(Math.abs(pertencage), [212, 28, 4], [240, 250, 60]));
+            arrow.style.transform = "rotate("+(pertencage*-90)+"deg)";
         }else{
             arrow.style.color = rgbToHex([225, 235, 38])
         }
@@ -53,14 +57,12 @@ function colourGradientor(p, rgb_beginning, rgb_end){
 
 document.getElementById("descargarImagenes").onclick = downloadImages;
 
-function downloadImages(){
-    console.log("entra")
+async function downloadImages(){
+    var zip = new JSZip();
     for(let i = 0; i < tables.length; i++){
         const table = tables.item(i);
-        htmlToImage.toPng(table)
-        .then(function (dataUrl) {
-            saveAs(dataUrl, 'image'+i+'.png');
-        });
-        //html2canvas(table.parentElement).then(canvas=>saveAs(canvas.toDataURL(), 'image'+i+'.png'));
+        zip.file('image'+i+'.png',  await htmlToImage.toBlob(table.parentElement));
     }
+    
+    saveAs(await zip.generateAsync({type:"blob"}), "imagenes.zip")
 }

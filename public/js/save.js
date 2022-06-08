@@ -11363,7 +11363,7 @@ function downloadImages() {
 
 function _downloadImages() {
   _downloadImages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var zip, _i2, _table;
+    var zip, _i2, _table, tableName;
 
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
@@ -11374,38 +11374,39 @@ function _downloadImages() {
 
           case 2:
             if (!(_i2 < tables.length)) {
-              _context.next = 13;
+              _context.next = 14;
               break;
             }
 
             _table = tables.item(_i2);
+            tableName = _table.getElementsByTagName("caption")[0].getElementsByTagName("span")[0].textContent;
             _context.t0 = zip;
-            _context.t1 = 'image' + _i2 + '.png';
-            _context.next = 8;
+            _context.t1 = tableName + '.png';
+            _context.next = 9;
             return html_to_image__WEBPACK_IMPORTED_MODULE_2__.toBlob(_table.parentElement);
 
-          case 8:
+          case 9:
             _context.t2 = _context.sent;
 
             _context.t0.file.call(_context.t0, _context.t1, _context.t2);
 
-          case 10:
+          case 11:
             _i2++;
             _context.next = 2;
             break;
 
-          case 13:
+          case 14:
             _context.t3 = file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs;
-            _context.next = 16;
+            _context.next = 17;
             return zip.generateAsync({
               type: "blob"
             });
 
-          case 16:
+          case 17:
             _context.t4 = _context.sent;
             (0, _context.t3)(_context.t4, "imagenes.zip");
 
-          case 18:
+          case 19:
           case "end":
             return _context.stop();
         }

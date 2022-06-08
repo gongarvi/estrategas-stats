@@ -61,7 +61,8 @@ async function downloadImages(){
     var zip = new JSZip();
     for(let i = 0; i < tables.length; i++){
         const table = tables.item(i);
-        zip.file('image'+i+'.png',  await htmlToImage.toBlob(table.parentElement));
+        var tableName = table.getElementsByTagName("caption")[0].getElementsByTagName("span")[0].textContent;
+        zip.file(tableName+'.png',  await htmlToImage.toBlob(table.parentElement));
     }
     
     saveAs(await zip.generateAsync({type:"blob"}), "imagenes.zip")

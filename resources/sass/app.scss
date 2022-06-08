@@ -7,6 +7,11 @@
 @import '~@fortawesome/fontawesome-free/css/solid';
 @import '~@fortawesome/fontawesome-free/css/brands';
 
+@font-face {
+    font-family: 'EBGaramond';
+    src: url('/fonts/EBGaramond-regular.ttf');
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -22,4 +27,10 @@ div{
 }
 .super-top{
     background-color: #F4B083;
+}
+
+.eu4-style{
+    font-family: 'EBGaramond';
+    color: #ebd234;
+    text-shadow: 0 0 4px rgba($color: black, $alpha: 0.75);
 }

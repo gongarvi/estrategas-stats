@@ -424,9 +424,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
-.m-1 {
-  margin: 0.25rem;
-}
 .m-auto {
   margin: auto;
 }
@@ -472,6 +469,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .min-h-screen {
   min-height: 100vh;
 }
+.w-full {
+  width: 100%;
+}
 .w-40 {
   width: 10rem;
 }
@@ -482,12 +482,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-}
-.w-full {
-  width: 100%;
-}
-.max-w-sm {
-  max-width: 24rem;
 }
 .max-w-3xl {
   max-width: 48rem;
@@ -504,35 +498,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .flex-wrap {
   flex-wrap: wrap;
 }
-.flex-nowrap {
-  flex-wrap: nowrap;
-}
 .place-content-evenly {
   place-content: space-evenly;
 }
 .place-items-center {
   place-items: center;
 }
-.place-items-stretch {
-  place-items: stretch;
-}
-.items-center {
-  align-items: center;
-}
-.items-stretch {
-  align-items: stretch;
+.gap-4 {
+  gap: 1rem;
 }
 .gap-5 {
   gap: 1.25rem;
 }
-.gap-4 {
-  gap: 1rem;
-}
 .overflow-x-auto {
   overflow-x: auto;
-}
-.scroll-smooth {
-  scroll-behavior: smooth;
 }
 .rounded-lg {
   border-radius: 0.5rem;
@@ -582,6 +561,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-2 {
   padding: 0.5rem;
 }
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -598,14 +581,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-.px-0 {
-  padding-left: 0px;
-  padding-right: 0px;
-}
 .text-left {
   text-align: left;
 }
@@ -615,6 +590,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -646,10 +625,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-.shadow-slate-100 {
-  --tw-shadow-color: #f1f5f9;
-  --tw-shadow: var(--tw-shadow-colored);
 }
 /*!
  * Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com
@@ -10928,6 +10903,10 @@ readers do not read off random characters that represent icons */
   content: "\f63f";
 }
 
+@font-face {
+  font-family: "EBGaramond";
+  src: url("/fonts/EBGaramond-regular.ttf");
+}
 * {
   margin: 0;
   padding: 0;
@@ -10948,6 +10927,12 @@ div {
   background-color: #F4B083;
 }
 
+.eu4-style {
+  font-family: "EBGaramond";
+  color: #ebd234;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
+}
+
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -10961,16 +10946,6 @@ div {
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
-}
-
-.hover\:shadow-slate-100:hover {
-  --tw-shadow-color: #f1f5f9;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.hover\:shadow-slate-900:hover {
-  --tw-shadow-color: #0f172a;
-  --tw-shadow: var(--tw-shadow-colored);
 }
 
 .hover\:shadow-slate-600:hover {
@@ -10987,11 +10962,6 @@ div {
 }
 
 @media (min-width: 640px) {
-
-  .sm\:py-5 {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-  }
 
   .sm\:px-5 {
     padding-left: 1.25rem;

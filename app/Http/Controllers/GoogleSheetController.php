@@ -43,8 +43,6 @@ class GoogleSheetController extends Controller
         $alivePlayersRange = "Control!D14";
         $alivePlayers = $service->spreadsheets_values->get($spreadsheetId, $alivePlayersRange)->getValues()[0][0];
 
-        $data["year"] = $this->getYearFromSpreadSheet($spreadsheetId);
-
         $stadistics = array();
         foreach(StadisticsRanges::cases() as $case){
             $stadistics[$case->name()] = $this->getDataFromSpreadSheet($spreadsheetId,str_replace("{RANGE}",(8 + $alivePlayers), $case->range()));
@@ -54,6 +52,21 @@ class GoogleSheetController extends Controller
         return (object) $data;
     }
 
+    public function getGameTitle(string $spreadsheetId) : string{
+        $service = new \Google\Service\Sheets($this->client);
+        $range = "Control!B3:D3";
+        $response = $service->spreadsheets_values->get($spreadsheetId, $range)->getValues();
+        if($response == null) return "";
+        return $response[0][1] . " " . $response[0][2] . " - " . $response[0][0];
+    }
+
+    public function getYearFromSpreadSheet(string $spreadsheetId){
+        $service = new \Google\Service\Sheets($this->client);
+        $alivePlayersRange = "CONFIGURATION!B18";
+        $year = $service->spreadsheets_values->get($spreadsheetId, $alivePlayersRange)->getValues()[0][0];
+        return $year;
+    }
+
     private function getTopsDataFromSpreadSheet(string $spreadsheetId){
         $service = new \Google\Service\Sheets($this->client);
         $range = "Regla de TOPs!H2:H3";
@@ -61,12 +74,7 @@ class GoogleSheetController extends Controller
         return array("top"=>$response[0][0], "superTop"=>$response[1][0]);
     }
 
-    private function getYearFromSpreadSheet(string $spreadsheetId){
-        $service = new \Google\Service\Sheets($this->client);
-        $alivePlayersRange = "CONFIGURATION!B18";
-        $year = $service->spreadsheets_values->get($spreadsheetId, $alivePlayersRange)->getValues()[0][0];
-        return $year;
-    }
+    
 
     private function getDataFromSpreadSheet(string $spreadsheetId, string $range){
         try{

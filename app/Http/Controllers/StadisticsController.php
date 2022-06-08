@@ -18,6 +18,8 @@ class StadisticsController extends Controller
     }
     function save(string $id){
         $data = $this->google->getAllDataFromSpreadSheet($id);
-        return view('pages.save')->with('data', $data);
+        $title = $this->google->getGameTitle($id);
+        $year = $this->google->getYearFromSpreadSheet($id);
+        return view('pages.save')->with('data', $data)->with('title', $title)->with('year', $year);
     }
 }

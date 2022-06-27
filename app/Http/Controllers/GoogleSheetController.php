@@ -56,7 +56,7 @@ class GoogleSheetController extends Controller
         $service = new \Google\Service\Sheets($this->client);
         $range = "Control!B3:D3";
         $response = $service->spreadsheets_values->get($spreadsheetId, $range)->getValues();
-        if($response == null) return "";
+        if($response == null || count($response)>1 || count($response[0]) !== 3) return "";
         return $response[0][1] . " " . $response[0][2] . " - " . $response[0][0];
     }
 

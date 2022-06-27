@@ -34,3 +34,12 @@ div{
     color: #ebd234;
     text-shadow: 0 0 4px rgba($color: black, $alpha: 0.75);
 }
+
+#spinner{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    place-content: center;
+    overflow: hidden;
+    z-index: 10;
+}

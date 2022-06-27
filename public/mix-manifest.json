@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/save.js": "/js/save.js",
+    "/js/spinner.js": "/js/spinner.js",
+    "/css/spinner.css": "/css/spinner.css",
     "/css/app.css": "/css/app.css"
 }

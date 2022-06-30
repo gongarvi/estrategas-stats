@@ -5,27 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $tag
  * @property string $name
- * @property string $color
+ * @property string $edition
  * @property int    $created_at
  * @property int    $updated_at
  */
-class Country extends Model
+class Game extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'country';
+    protected $table = 'game';
 
     /**
      * The primary key for the model.
      *
      * @var string
      */
-    protected $primaryKey = 'tag';
+    protected $primaryKey = 'uuid';
 
     /**
      * Attributes that should be mass-assignable.
@@ -33,7 +32,7 @@ class Country extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'color', 'created_at', 'updated_at'
+        'name', 'edition', 'created_at', 'updated_at'
     ];
 
     /**
@@ -51,7 +50,7 @@ class Country extends Model
      * @var array
      */
     protected $casts = [
-        'tag' => 'string', 'name' => 'string', 'color' => 'string', 'created_at' => 'timestamp', 'updated_at' => 'timestamp'
+        'name' => 'string', 'edition' => 'string', 'created_at' => 'timestamp', 'updated_at' => 'timestamp'
     ];
 
     /**

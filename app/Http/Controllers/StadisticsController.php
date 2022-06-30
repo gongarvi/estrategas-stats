@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 class StadisticsController extends Controller
 {
 
+    private GoogleSheetController $google;
+
     function __construct()
     {
         $this->google = new GoogleSheetController();    

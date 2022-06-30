@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enumerations\StadisticsRanges;
 use App\Models\Country;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class GoogleSheetController extends Controller
@@ -50,6 +51,29 @@ class GoogleSheetController extends Controller
         $data["stadistics"] = (object) $stadistics;
         $data["tops"] = (object) $this->getTopsDataFromSpreadSheet($spreadsheetId);
         return (object) $data;
+    }
+
+    public function getCountries(string $spreadsheetId, string $range) : array {
+        $service = new \Google\Service\Sheets($this->client);
+        $response = $service->spreadsheets_values->get($spreadsheetId, $range)->getValues();
+        if($response === null) return [];
+        return array_map(function($item){
+            try{
+                return [
+                    "tag"=>$item[0],
+                    "name"=>$item[1],
+                    "color"=>$item[2]
+                ];
+            }
+            catch(Exception $e){
+                return[
+                    "tag"=>$item[0],
+                    "name"=>$item[1],
+                    "color"=>"#000"
+                ];
+            }
+            
+        }, $response);
     }
 
     public function getGameTitle(string $spreadsheetId) : string{

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\View\Components\spinner;
+use App\View\Components\Spinner;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 

@@ -8,33 +8,34 @@ namespace App\Enumerations;
  */
 enum StadisticsRanges{
     case Development;
-    case GreatPower;
-    case Income;
-    case Professionalism;
-    case ArmyLimit;
-    case Innovation;
-    case Manpower;
-    case AverageDevelopment;
-    case OverallSpent;
-    case ManpowerRecovery;
-    case Provinces;
-    case Absolutism;
-    case ArmyStrength;
-    case TotalValue;
-    case NavalStrength;
-    case MonarchPointsSpent;
-    case ArmyQuality;
-    case AdvisorsSpent;
     case AverageDevelopmentCost;
+    case AverageDevelopment;
     case DevelopmentClicks;
+    case MonarchPointsSpent;
     case AveragteGobermentPoints;
+    case Innovation;
+    case Provinces;
+    case Income;
+    case OverallSpent;
+    case AdvisorsSpent;
+    case TotalValue;
+    case ArmyQuality;
+    case ArmyLimit;
+    case Manpower;
+    case ManpowerRecovery;
+    case Professionalism;
+    case ArmyStrength;
     case CountryForce;
+    case NavalStrength;
     case TOPs;
+
+    //case GreatPower;
+    //case Absolutism;
 
     public function range(){
         return match($this){
             StadisticsRanges::Development => "Seguimiento!B9:J{RANGE}",
-            StadisticsRanges::GreatPower => "Seguimiento!M9:U{RANGE}",
+            //StadisticsRanges::GreatPower => "Seguimiento!M9:U{RANGE}",
             StadisticsRanges::Income => "Seguimiento!X9:AF{RANGE}",
             StadisticsRanges::Professionalism => "Seguimiento!AI9:AQ{RANGE}",
             StadisticsRanges::ArmyLimit => "Seguimiento!AT9:BB{RANGE}",
@@ -44,7 +45,7 @@ enum StadisticsRanges{
             StadisticsRanges::OverallSpent => "Seguimiento!CL9:CT{RANGE}",
             StadisticsRanges::ManpowerRecovery => "Seguimiento!CW9:DE{RANGE}",
             StadisticsRanges::Provinces => "Seguimiento!DH9:DP{RANGE}",
-            StadisticsRanges::Absolutism => "Seguimiento!DS9:EA{RANGE}",
+            //StadisticsRanges::Absolutism => "Seguimiento!DS9:EA{RANGE}",
             StadisticsRanges::ArmyStrength => "Seguimiento!ED9:EL{RANGE}",
             StadisticsRanges::TotalValue => "Seguimiento!EO9:EW{RANGE}",
             StadisticsRanges::NavalStrength => "Seguimiento!EZ9:FH{RANGE}",
@@ -62,7 +63,7 @@ enum StadisticsRanges{
     public function name(){
         return match($this){
             StadisticsRanges::Development => "Desarrollo total",
-            StadisticsRanges::GreatPower => "Puntación de Gran Potencia",
+            //StadisticsRanges::GreatPower => "Puntación de Gran Potencia",
             StadisticsRanges::Income => "Ingreso mensual",
             StadisticsRanges::Professionalism => "Profesionalismo",
             StadisticsRanges::ArmyLimit => "Límite de ejército",
@@ -72,7 +73,7 @@ enum StadisticsRanges{
             StadisticsRanges::OverallSpent => "Gasto total",
             StadisticsRanges::ManpowerRecovery => "Recuperación de soldadesca",
             StadisticsRanges::Provinces => "Número de provincias",
-            StadisticsRanges::Absolutism => "Absolutismo",
+            //StadisticsRanges::Absolutism => "Absolutismo",
             StadisticsRanges::ArmyStrength => "Fuerza del ejército",
             StadisticsRanges::TotalValue => "Valor total de edificios",
             StadisticsRanges::NavalStrength => "Fuerza naval",

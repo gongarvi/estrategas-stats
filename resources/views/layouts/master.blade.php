@@ -14,11 +14,18 @@
 
         @yield('headers')
     </head>
-    <body class="antialiased min-h-screen">
-        <x-spinner/>
-        <main id="main" class="bg-slate-300">
-            @yield('content')
-        </main>
+    <body class="antialiased">
+        <div id="hidden-content">
+            <x-spinner/>
+        </div>
+        <div id="show-content" class="min-h-screen bg-slate-300 flex flex-col w-full">
+            <header id="header" class="w-full">
+                @yield('header')
+            </header>
+            <main id="main" class="w-full grow h-full flex place-items-center">
+                @yield('content')
+            </main>
+        </div>        
         <script src="{{asset('js/spinner.js')}}"></script>
     </body>
 </html>

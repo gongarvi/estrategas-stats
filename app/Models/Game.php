@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property string $last_save_load_job
  * @property string $name
  * @property string $edition
  * @property int    $created_at
@@ -24,7 +25,7 @@ class Game extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'uuid';
+    protected $primaryKey = 'id';
 
     /**
      * Attributes that should be mass-assignable.
@@ -32,7 +33,7 @@ class Game extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'edition', 'created_at', 'updated_at'
+        'user_id', 'last_save_load_job', 'name', 'edition', 'created_at', 'updated_at'
     ];
 
     /**
@@ -50,7 +51,11 @@ class Game extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string', 'edition' => 'string', 'created_at' => 'timestamp', 'updated_at' => 'timestamp'
+        'last_save_load_job' => 'string',
+        'name' => 'string',
+        'edition' => 'string',
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp'
     ];
 
     /**
@@ -69,9 +74,9 @@ class Game extends Model
      */
     public $timestamps = true;
 
-    // Scopes...
-
-    // Functions ...
-
-    // Relations ...
+    
+    public function sessions()
+    {
+        return $this->hasMany(GameSession::class);
+    }
 }

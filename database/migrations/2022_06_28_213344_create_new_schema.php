@@ -14,6 +14,28 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string("name");
+            $table->string("user_banner");
+            $table->boolean("admin");
+            $table->timestamps();
+        });
+
+        Schema::create('game', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->string("last_save_load_job")->nullable();
+            $table->string("name");
+            $table->string("edition");
+            $table->timestamps();
+
+            $table->foreign("user_id")
+                ->references("id")
+                ->on("users")
+                ->onDelete("set null");
+        });
+
         Schema::create('country', function (Blueprint $table) {
             $table->string("tag", 3)->nullable(false)->primary();
             $table->string('name');
@@ -21,73 +43,68 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('game', function(Blueprint $table){
-            $table->uuid()->nullable(false)->primary();
-            $table->string("name");
-            $table->string("edition");
-            $table->timestamps();
-        });
-
-        Schema::create('game_session', function(Blueprint $table){
-            $table->uuid("game_uuid")->nullable(false);
-            $table->smallInteger("session")->nullable(false)->default(0);
-            $table->string("skan_game_id")->nullable(false)->unique();
-
-            $table->index(["game_uuid", "session"]);
-
-            $table->string("skan_user_token")->nullable(false);
-            $table->foreign("game_uuid")
-                ->references("uuid")
-                ->on("game")
-                ->onDelete("cascade");
-        });
-
-        Schema::create("country_historic_data", function(Blueprint $table){
-            $table->unsignedBigInteger("id")->nullable(false)->primary();
-            $table->float("income");
-            $table->float("max_manpower");
-            $table->float("innovativeness");
-            $table->float("professionalism");
-            $table->float("development");
-            $table->float("force_limit");
-            $table->float("development_ratio");
-            $table->float("total_spent");
-            $table->float("manpower_recovery");
-            $table->integer("provinces");
-            $table->float("absolutism");
-            $table->float("army_strength");
-            $table->integer("buildings_value");
-            $table->float("naval_strength");
-            $table->float("quality_score");
-            $table->float("spent_on_advisors");
-            $table->float("development_average_cost");
-            $table->integer("development_clicks");
-            $table->float("weighted_avg_monarch");
-            $table->float("overall_strength");
-            $table->float("overall_strength_with_subjects");
-        });
-
-        Schema::create('game_historic', function(Blueprint $table){
-            $table->uuid("game_uuid")->nullable(false);
-            $table->smallInteger("session")->nullable(false);
+        Schema::create('game_session', function (Blueprint $table) {
+            $table->unsignedBigInteger("game_id")->nullable(false);
+            $table->integer("session")->nullable(false);
             $table->string("country_tag", 3)->nullable(false);
-            $table->unsignedBigInteger("country_historic_id");
+            $table->string("overlord", 3)->nullable()->default(null);
+            $table->timestamps();
 
-            $table->index(["session", "game_uuid", "country_tag"]);
-            
-            $table->foreign(["game_uuid", "session"])
-                ->references(["game_uuid", "session"])
-                ->on("game_session")
-                ->onDelete("cascade");
+            $table->index("overlord");
+            $table->index(["game_id", "session", "country_tag"]);
+            $table->primary(["game_id", "session", "country_tag"]);
 
             $table->foreign("country_tag")
                 ->references("tag")
-                ->on("country");
-
-            $table->foreign("country_historic_id")
-                ->references("id")
-                ->on("country_historic_data")
+                ->on("country")
                 ->onDelete("cascade");
+
+            $table->foreign("game_id")
+                ->references("id")
+                ->on("game")
+                ->onDelete("cascade");
+
+            $table->foreign("overlord")
+                ->references("country_tag")
+                ->on("game_session")
+                ->onDelete("set null");
+        });
+
+        Schema::create('country_historic_data', function (Blueprint $table) {
+            $table->unsignedBigInteger("game_id")->nullable(false);
+            $table->integer("session")->nullable(false);
+            $table->string("country_tag", 3)->nullable(false);
+
+            $table->index(["game_id", "session", "country_tag"]);
+            $table->foreign(["game_id", "session", "country_tag"])
+                ->references(["game_id", "session", "country_tag"])
+                ->on("game_session")
+                ->onDelete("cascade");
+
+            //Discipline
+            $table->float("discipline")->nullable(false)->default(0.0);
+            $table->float("discipline_constant")->nullable(false)->default(0.0);
+            $table->float("effective_discipline")->nullable(false)->default(0.0);
+
+            //Morale
+            $table->float("morale")->nullable(false)->default(0.0);
+            $table->float("morale_constant")->nullable(false)->default(0.0);
+            $table->float("effective_morale")->nullable(false)->default(0.0);
+
+            //Infantry power
+            $table->float("infantry_power")->nullable(false)->default(0.0);
+
+            //Cavalry power
+            $table->float("cavalry_power")->nullable(false)->default(0.0);
+            
+            //Artillery power
+            $table->float("artillery_power")->nullable(false)->default(0.0);
+
+            $table->float("force_limit")->nullable(false)->default(0.0);
+            $table->float("max_manpower")->nullable(false)->default(0.0);
+            $table->float("manpower_recovery")->nullable(false)->default(0.0);
+            $table->integer("development_clicks")->nullable(false)->default(0.0);
+            $table->float("income")->nullable()->default(0.0);
         });
     }
 
@@ -98,10 +115,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_historic');
         Schema::dropIfExists('country_historic_data');
         Schema::dropIfExists('game_session');
-        Schema::dropIfExists('game');
         Schema::dropIfExists('country');
+        Schema::dropIfExists('game');
+        Schema::dropIfExists('users');
     }
 };

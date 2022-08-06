@@ -44,6 +44,13 @@ return [
             'throw' => false,
         ],
 
+        'eu4-files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/eu4-files'),
+            'url' => env('APP_URL').'/storage/eu4-files',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

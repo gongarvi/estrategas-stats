@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enumerations;
+namespace App\Constants;
 
 /**
  * @method static self range()

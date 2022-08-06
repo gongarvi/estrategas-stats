@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Http\Controllers\GoogleSheetController;
+use App\Http\Services\GoogleSheetService;
 use App\Models\Country;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class CountrySeeder extends Seeder
 {
-    private GoogleSheetController $google;
+    private GoogleSheetService $google;
 
     function __construct()
     {
-        $this->google = new GoogleSheetController();    
+        $this->google = new GoogleSheetService();    
     }
     /**
      * Seed the application's database.

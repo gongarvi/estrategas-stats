@@ -1,1 +1,35 @@
-(()=>{var e=document.getElementById("spinner");function s(){e.classList.contains("hidden")&&(e.classList.remove("hidden"),e.classList.add("flex"))}window.onbeforeunload=s,window.onload=function(){var n=document.getElementsByClassName("save-id");console.log("ocultamos"),e.classList.contains("hidden")||(e.classList.add("hidden"),e.classList.remove("flex"));for(var d=0;d<n.length;d++)n.item(d).addEventListener("click",s)}})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*********************************!*\
+  !*** ./resources/js/spinner.js ***!
+  \*********************************/
+var spinner = document.getElementById("spinner");
+window.onbeforeunload = showSpinner;
+
+window.onload = function () {
+  var links = document.getElementsByClassName("save-id"); // Cuando carga la página quitamos el spinner
+
+  hideSpinner();
+
+  for (var i = 0; i < links.length; i++) {
+    links.item(i).addEventListener("click", showSpinner);
+  }
+};
+
+function hideSpinner() {
+  console.log("ocultamos");
+
+  if (!spinner.classList.contains("hidden")) {
+    spinner.classList.add("hidden");
+    spinner.classList.remove("flex");
+  }
+}
+
+function showSpinner() {
+  if (spinner.classList.contains("hidden")) {
+    spinner.classList.remove("hidden");
+    spinner.classList.add("flex");
+  }
+}
+/******/ })()
+;

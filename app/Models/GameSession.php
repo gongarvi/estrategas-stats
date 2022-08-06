@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $skan_game_id
- * @property string $skan_user_token
+ * @property int    $session
+ * @property string $country_tag
+ * @property string $overlord
  */
 class GameSession extends Model
 {
@@ -17,12 +18,8 @@ class GameSession extends Model
      */
     protected $table = 'game_session';
 
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'skan_game_id';
+    protected $primaryKey = ['game_id', 'session', 'country_tag'];
+    public $incrementing = false;
 
     /**
      * Attributes that should be mass-assignable.
@@ -30,7 +27,7 @@ class GameSession extends Model
      * @var array
      */
     protected $fillable = [
-        'game_uuid', 'session', 'skan_user_token'
+        'game_id', 'session', 'country_tag'
     ];
 
     /**
@@ -48,7 +45,7 @@ class GameSession extends Model
      * @var array
      */
     protected $casts = [
-        'skan_game_id' => 'string', 'skan_user_token' => 'string'
+        'session' => 'int', 'country_tag' => 'string', 'overlord' => 'string'
     ];
 
     /**
@@ -72,4 +69,9 @@ class GameSession extends Model
     // Functions ...
 
     // Relations ...
+
+    public function countryData()
+    {
+        return $this->belongsTo(CountryHistoricData::class);
+    }
 }

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
-use App\Enumerations\StadisticsRanges;
+use App\Constants\StadisticsRanges;
 use App\Models\Country;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
-class GoogleSheetController extends Controller
+class GoogleSheetService
 {
 
     private \Google_Client $client;
 
     function __construct(){
         $this->client = new \Google\Client();
-        putenv('GOOGLE_APPLICATION_CREDENTIALS=' .Storage::path("estrategasapi-f6d9d36edc2b.json"));
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=' . Storage::path("estrategasapi-f6d9d36edc2b.json"));
         $this->client->setAuthConfig(Storage::path("estrategasapi-f6d9d36edc2b.json"));
         $this->client->setApplicationName("Estrategas Calulator");
         $this->client->setScopes([\Google\Service\Sheets::SPREADSHEETS, \Google\Service\Drive::DRIVE]);
@@ -31,10 +31,11 @@ class GoogleSheetController extends Controller
         
         $fileNames = array();
         foreach($files as $file){
-            $fileNames[] = (object) array(
-                "name" => $file->name,
-                "key" => $file->id
-            );
+            if($file && $file->name !== "Master")
+                $fileNames[] = (object) array(
+                    "name" => $file->name,
+                    "key" => $file->id
+                );
         }
         return (object) $fileNames;
     }
@@ -87,8 +88,7 @@ class GoogleSheetController extends Controller
     public function getYearFromSpreadSheet(string $spreadsheetId){
         $service = new \Google\Service\Sheets($this->client);
         $alivePlayersRange = "CONFIGURATION!B18";
-        $year = $service->spreadsheets_values->get($spreadsheetId, $alivePlayersRange)->getValues()[0][0];
-        return $year;
+        return $service->spreadsheets_values->get($spreadsheetId, $alivePlayersRange)->getValues()[0][0];;
     }
 
     private function getTopsDataFromSpreadSheet(string $spreadsheetId){

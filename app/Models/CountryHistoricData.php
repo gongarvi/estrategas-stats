@@ -5,27 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int   $buildings_value
- * @property int   $development_clicks
- * @property int   $provinces
- * @property float $naval_strength
- * @property float $quality_score
- * @property float $spent_on_advisors
- * @property float $development_average_cost
- * @property float $weighted_avg_monarch
- * @property float $overall_strength
- * @property float $overall_strength_with_subjects
- * @property float $income
- * @property float $max_manpower
- * @property float $innovativeness
- * @property float $professionalism
- * @property float $development
- * @property float $force_limit
- * @property float $development_ratio
- * @property float $total_spent
- * @property float $manpower_recovery
- * @property float $absolutism
- * @property float $army_strength
+ * @property int    $session
+ * @property int    $development_clicks
+ * @property string $country_tag
+ * @property float  $discipline
+ * @property float  $discipline_constant
+ * @property float  $effective_discipline
+ * @property float  $morale
+ * @property float  $morale_constant
+ * @property float  $effective_morale
+ * @property float  $infantry_power
+ * @property float  $cavalry_power
+ * @property float  $artillery_power
+ * @property float  $force_limit
+ * @property float  $max_manpower
+ * @property float  $manpower_recovery
+ * @property float  $income
  */
 class CountryHistoricData extends Model
 {
@@ -36,12 +31,9 @@ class CountryHistoricData extends Model
      */
     protected $table = 'country_historic_data';
 
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
+
+    protected $primaryKey = ['game_id', 'session', 'country_tag'];
+    public $incrementing = false;
 
     /**
      * Attributes that should be mass-assignable.
@@ -49,7 +41,7 @@ class CountryHistoricData extends Model
      * @var array
      */
     protected $fillable = [
-        'buildings_value', 'naval_strength', 'quality_score', 'spent_on_advisors', 'development_average_cost', 'development_clicks', 'weighted_avg_monarch', 'overall_strength', 'overall_strength_with_subjects', 'income', 'max_manpower', 'innovativeness', 'professionalism', 'development', 'force_limit', 'development_ratio', 'total_spent', 'manpower_recovery', 'provinces', 'absolutism', 'army_strength'
+        'game_id', 'session', 'country_tag'
     ];
 
     /**
@@ -67,7 +59,7 @@ class CountryHistoricData extends Model
      * @var array
      */
     protected $casts = [
-        'buildings_value' => 'int', 'naval_strength' => 'double', 'quality_score' => 'double', 'spent_on_advisors' => 'double', 'development_average_cost' => 'double', 'development_clicks' => 'int', 'weighted_avg_monarch' => 'double', 'overall_strength' => 'double', 'overall_strength_with_subjects' => 'double', 'income' => 'double', 'max_manpower' => 'double', 'innovativeness' => 'double', 'professionalism' => 'double', 'development' => 'double', 'force_limit' => 'double', 'development_ratio' => 'double', 'total_spent' => 'double', 'manpower_recovery' => 'double', 'provinces' => 'int', 'absolutism' => 'double', 'army_strength' => 'double'
+        'session' => 'int', 'country_tag' => 'string', 'discipline' => 'double', 'discipline_constant' => 'double', 'effective_discipline' => 'double', 'morale' => 'double', 'morale_constant' => 'double', 'effective_morale' => 'double', 'infantry_power' => 'double', 'cavalry_power' => 'double', 'artillery_power' => 'double', 'force_limit' => 'double', 'max_manpower' => 'double', 'manpower_recovery' => 'double', 'development_clicks' => 'int', 'income' => 'double'
     ];
 
     /**
@@ -84,7 +76,7 @@ class CountryHistoricData extends Model
      *
      * @var boolean
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     // Scopes...
 

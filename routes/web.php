@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StadisticsController;
+use App\Http\Middleware\RefreshSession;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [StadisticsController::class, 'index']);
+Route::middleware([RefreshSession::class])->group(function(){
+    Route::get('/', [StadisticsController::class, 'reIndex']);
+    Route::get('/save/{id}', [StadisticsController::class, 'save'])->name("save");
+});
 
-Route::get('/save/{id}', [StadisticsController::class, 'save'])->name("save");

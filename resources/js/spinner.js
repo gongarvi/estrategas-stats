@@ -11,7 +11,6 @@ window.onload = function(){
 }
 
 function hideSpinner(){
-    console.log("ocultamos")
     if(!spinner.classList.contains("hidden")){
         spinner.classList.add("hidden");
         spinner.classList.remove("flex");
